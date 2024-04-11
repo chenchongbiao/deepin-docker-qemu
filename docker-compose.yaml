@@ -1,0 +1,23 @@
+version: "3"
+services:
+  deepin-qemu:
+    build:
+      context: .
+    image: chenchongbiao/deepin-docker-qemu
+    container_name: deepin-qemu
+    environment:
+      VERSION: "v23"
+    volumes:
+      - /var/deepin:/storage
+      - /var/deepin/custom.iso:/storage/custom.iso
+      - ./src/install.sh:/run/install.sh
+    devices:
+      - /dev/kvm
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006
+      - 3389:3389/tcp
+      - 3389:3389/udp
+    stop_grace_period: 2m
+    restart: on-failure
